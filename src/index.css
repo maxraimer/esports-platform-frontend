@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+    background: oklch(var(--b3)) !important;
+}
+
+#nav .btn {
+    @apply rounded-md py-2 px-4 min-h-[2rem] h-auto;
+}
+
+#auth_modal .modal-box {
+    @apply max-w-[48rem];
+}
+
+#reg_modal .modal-box {
+    @apply max-w-[48rem];
+}
+
+#auth_modal .social-btn {
+    @apply hover:border-base-content/20 hover:bg-base-100 bg-base-100;
+}
+
+.link {
+    @apply no-underline;
+}
+
+.input:focus, .input:focus-within {
+    @apply outline-none;
+}
