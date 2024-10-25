@@ -6,8 +6,16 @@ html {
     background: oklch(var(--b3)) !important;
 }
 
-#nav .btn {
+#nav button.btn {
     @apply rounded-md py-2 px-4 min-h-[2rem] h-auto;
+}
+
+#nav div.btn.avatar {
+    @apply rounded-full p-1 min-h-[2rem] h-auto w-auto ;
+}
+
+#label_search {
+    @apply max-h-[2.5rem] px-2
 }
 
 #auth_modal .modal-box {
@@ -29,3 +37,4 @@ html {
 .input:focus, .input:focus-within {
     @apply outline-none;
 }
+

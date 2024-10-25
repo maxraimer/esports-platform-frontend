@@ -1,11 +1,11 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import NavMenuElement from './NavMenuElement';
-import { News, Cup, Match, Rating, Live, Market, ESP } from '../svg/Icons';
+import { News, Cup, CupFilled, Match, Rating, Live, Market, ESP, Search, Activity, User, Friends, Team, AdminLocker, Settings, Exit, Organizer } from '../svg/Icons';
 
 export default function Nav() {
     const location = useLocation();
-    const authed = false;
+    const authed = true;
     const currentPath = location.pathname;
     return(
         <div id='nav' className='w-full h-[3.5rem] bg-base-100 flex justify-between'>
@@ -26,8 +26,33 @@ export default function Nav() {
 
             {/* User Space */}
             {authed ? 
-                <div>
+                <div className='flex gap-2 mr-2 items-center'>
+                    <label id='label_search' className="input input-bordered focus-within:border-primary flex items-center gap-2">
+                        <Search className='h-4 w-4 opacity-70 [&>*]:fill-base-content'/>
+                        <input id='search' type="text" className="" placeholder="Пошук"/>
+                    </label>
 
+                    <div className='dropdown dropdown-end'>
+                        <div tabIndex={0} role='button' className='btn btn-ghost avatar'>
+                            <div className='w-[2rem] h-[2rem] rounded-full ring-[2.5px] ring-primary'>
+                                <img alt='profile_photo' src='https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp' />
+                            </div>
+                        </div>
+                        <ul tabIndex={0} className='menu menu-md dropdown-content bg-base-100 rounded-md z-[1] mt-4 w-52 p-2 shadow'>
+                            <li><Link to='/user/1'><User className='w-[1rem] h-[1rem] px-[0.1rem] fill-base-content'/>Профіль</Link></li>
+                            <div className='divider my-1'></div>
+                            <li><Link to='/user/1/activity'><Activity className='w-[1rem] h-[1rem] fill-base-content'/>Активність</Link></li>
+                            <li><Link to='/user/1/friends'><Friends className='w-[1rem] h-[1rem] fill-base-content'/>Друзі</Link></li>
+                            <li><Link to='/user/1/teams'><Team className='w-[1rem] h-[1rem] fill-base-content'/>Команди</Link></li>
+                            <li><Link to='/user/1/tournaments'><CupFilled className='w-[1rem] h-[1rem] p-[0.1rem] fill-base-content'/>Турніри</Link></li>
+                            <div className='divider my-1'></div>
+                            {/* <li><Link to='/'><AdminLocker className='w-[1rem] h-[1rem] fill-base-content'/>Адмін-панель</Link></li> */}
+                            {/* <li><Link to='/'><Organizer className='w-[1rem] h-[1rem] fill-base-content'/>Організатор</Link></li> */}
+                            <li><Link to='/user/1/settings'><Settings className='w-[1rem] h-[1rem] fill-base-content'/>Налаштування</Link></li>
+                            <div className='divider my-1'></div>
+                            <li><button className='text-error'><Exit className='w-[1rem] h-[1rem] p-[0.1rem] [&>*]:fill-error'/>Вихід</button></li>
+                        </ul>
+                    </div>
                 </div>
                 :
                 <div className='flex gap-2 justify-center items-center px-4'>

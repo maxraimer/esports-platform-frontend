@@ -52,8 +52,8 @@ export default function AuthModal() {
             if (response.status === 200) {
                 // Дії після успішного логіну (можливо, редірект або закриття модалки)
                 document.getElementById('loginButtonText').classList.remove('loading', 'loading-spinner');
-                // document.getElementById('auth_modal').close();
-                // clearAll();
+                document.getElementById('auth_modal').close();
+                clearAll();
                 showAlert('Ви успішно авторизувались!', 'success', 'authSuccess');
             } else {
                 // Відображення помилки авторизації
