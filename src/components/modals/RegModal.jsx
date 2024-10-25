@@ -93,7 +93,8 @@ export default function RegModal() {
                     document.getElementById('label_reg_login').classList.add('border-error');
                     document.getElementById('label_reg_email').classList.add('border-error');
                     setRegErrorMessage('Користувач з таким логіном або імейлом вже зареєстрований.');
-
+                } else if (response.status === 503) {
+                    setRegErrorMessage('Сервер авторизації недоступний. Спробуйте пізніше.');
                 } else {
                     setRegErrorMessage(response.message || 'Помилка реєстрації.');
                 }

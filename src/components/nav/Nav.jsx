@@ -5,7 +5,7 @@ import { News, Cup, CupFilled, Match, Rating, Live, Market, ESP, Search, Activit
 
 export default function Nav() {
     const location = useLocation();
-    const authed = true;
+    const authed = false;
     const currentPath = location.pathname;
     return(
         <div id='nav' className='w-full h-[3.5rem] bg-base-100 flex justify-between'>

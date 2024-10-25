@@ -50,6 +50,7 @@ export default function AuthModal() {
             const response = await api_login(login, password);
 
             if (response.status === 200) {
+                delete response.data.user.password;
                 // Дії після успішного логіну (можливо, редірект або закриття модалки)
                 document.getElementById('loginButtonText').classList.remove('loading', 'loading-spinner');
                 document.getElementById('auth_modal').close();
