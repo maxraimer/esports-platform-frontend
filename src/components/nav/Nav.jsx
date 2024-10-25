@@ -46,8 +46,8 @@ export default function Nav() {
                             <li><Link to='/user/1/teams'><Team className='w-[1rem] h-[1rem] fill-base-content'/>Команди</Link></li>
                             <li><Link to='/user/1/tournaments'><CupFilled className='w-[1rem] h-[1rem] p-[0.1rem] fill-base-content'/>Турніри</Link></li>
                             <div className='divider my-1'></div>
-                            {/* <li><Link to='/'><AdminLocker className='w-[1rem] h-[1rem] fill-base-content'/>Адмін-панель</Link></li> */}
-                            {/* <li><Link to='/'><Organizer className='w-[1rem] h-[1rem] fill-base-content'/>Організатор</Link></li> */}
+                            <li><Link to='/'><AdminLocker className='w-[1rem] h-[1rem] fill-base-content'/>Адмін-панель</Link></li>
+                            <li><Link to='/'><Organizer className='w-[1rem] h-[1rem] fill-base-content'/>Організатор</Link></li>
                             <li><Link to='/user/1/settings'><Settings className='w-[1rem] h-[1rem] fill-base-content'/>Налаштування</Link></li>
                             <div className='divider my-1'></div>
                             <li><button className='text-error'><Exit className='w-[1rem] h-[1rem] p-[0.1rem] [&>*]:fill-error'/>Вихід</button></li>
