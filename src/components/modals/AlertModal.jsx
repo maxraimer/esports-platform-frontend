@@ -27,10 +27,10 @@ export default function AlertModal({text, type, id, duration = 5000}) {
     };
 
     const iconComponent = {
-        success: <Success className='h-6 w-6 shrink-0 stroke-current' />,
-        failed: <Failed className='h-6 w-6 shrink-0 stroke-current' />,
-        warning: <Warn className='h-6 w-6 shrink-0 stroke-current' />,
-        info: <Info className='h-6 w-6 shrink-0 stroke-current' />,
+        success: <Success className='h-6 w-6 shrink-0 stroke-current'/>,
+        failed: <Failed className='h-6 w-6 shrink-0 stroke-current'/>,
+        warning: <Warn className='h-6 w-6 shrink-0 stroke-current'/>,
+        info: <Info className='h-6 w-6 shrink-0 stroke-current'/>,
     };
 
     return (

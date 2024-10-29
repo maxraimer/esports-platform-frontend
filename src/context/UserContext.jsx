@@ -1,4 +1,5 @@
-import React, { createContext, useState, useEffect, useContext, Children } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import { getTokenExpiration, getUserDataFromToken, isTokenExpired } from '../scripts/token';
 
 const UserContext = createContext();
 
@@ -10,14 +11,15 @@ export const UserProvider = ({ children }) => {
     const [tokenExpiry, setTokenExpiry] = useState(null);
 
     // Saving token, userData and token expiry
-    const login = (token, userData, expiresIn) => {
-        const expiryTime = Date.now() + expiresIn * 1000;
+    const login = (token) => {
+        const expiryTime = getTokenExpiration(token);
+        const userData = getUserDataFromToken(token);
         setToken(token);
         setTokenExpiry(expiryTime);
         setUser(userData);
 
         localStorage.setItem('token', token);
-        localStorage.setItem('tokenExpiry', tokenExpiry);
+        localStorage.setItem('tokenExpiry', expiryTime);
         localStorage.setItem('user', JSON.stringify(userData));
     }
 
@@ -38,7 +40,7 @@ export const UserProvider = ({ children }) => {
         const storedExpiry = localStorage.getItem('tokenExpiry');
         const storedUser = JSON.parse(localStorage.getItem('user'));
 
-        if (storedToken && storedExpiry && Date.now() < storedExpiry) {
+        if (storedToken && !isTokenExpired(storedToken)) {
             setToken(storedToken);
             setUser(storedUser);
             setTokenExpiry(storedExpiry);
@@ -49,7 +51,7 @@ export const UserProvider = ({ children }) => {
 
     // Alerting about session expiration
     useEffect(() => {
-        if (tokenExpiry && Date.now() >= tokenExpiry) {
+        if (isTokenExpired(token)) {
             alert('Час сесії сплив, будь ласка, увійдіть знову.');
             logout();
         }

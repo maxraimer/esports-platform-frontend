@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { EyeClosed, EyeOpened, Google, Password, Steam, Telegram, User } from '../svg/Icons';
-import { api_login } from '../../scripts/api';
 import { useAlert } from '../../context/AlertContext';
+import { useUser } from '../../context/UserContext';
+import { api_login } from '../../scripts/api';
+import { addClass, clearValue, closeModal, getValue, openModal, removeClass } from '../../scripts/misc';
+import { getTokenExpiration } from '../../scripts/token';
 
 export default function AuthModal() {
+
+    const { login } = useUser();
 
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
     const [authErrorMessage, setAuthErrorMessage] = useState('');
@@ -12,74 +17,75 @@ export default function AuthModal() {
 
     const handleSwitchAuth = () => {
         clearAll();
-        document.getElementById('auth_modal').close();
-        document.getElementById('reg_modal').showModal();
+        closeModal('auth_modal');
+        openModal('reg_modal');
     }
 
     const clearAll = () => {
         setAuthErrorMessage('');
-        document.getElementById('auth_login').value = '';
-        document.getElementById('auth_password').value = '';
-        document.getElementById('label_auth_login').classList.remove('border-error');
-        document.getElementById('label_auth_password').classList.remove('border-error');
+        clearValue('auth_login');
+        clearValue('auth_password');
+        removeClass('label_auth_login', 'border-error');
+        removeClass('label_auth_password', 'border-error');
     }
 
     const handleInputChange = () => {
         setAuthErrorMessage('');
-        document.getElementById('label_auth_login').classList.remove('border-error');
-        document.getElementById('label_auth_password').classList.remove('border-error');
+        removeClass('label_auth_login', 'border-error');
+        removeClass('label_auth_password', 'border-error');
     }
 
     const handleLogin = async () => {
-        document.getElementById('loginButtonText').classList.add('loading', 'loading-spinner');
+        addClass('loginButtonText', ['loading', 'loading-spinner']);
 
-        const login = document.getElementById('auth_login').value;
-        const password = document.getElementById('auth_password').value;
+        const username = getValue('auth_login');
+        const password = getValue('auth_password');
 
-        if (!login || !password) {
+        if (!username || !password) {
             setAuthErrorMessage('Введіть, будь ласка, свої дані.');
-            document.getElementById('label_auth_login').classList.add('border-error');
-            document.getElementById('label_auth_password').classList.add('border-error');
-            document.getElementById('loginButtonText').classList.remove('loading', 'loading-spinner');
+
+            addClass('label_auth_login', 'border-error');
+            addClass('label_auth_password', 'border-error');
+            removeClass('loginButtonText', ['loading', 'loading-spinner']);
             return;
         }
 
         setAuthErrorMessage('');
 
         try {
-            const response = await api_login(login, password);
+            const response = await api_login(username, password);
 
             if (response.status === 200) {
                 delete response.data.user.password;
-                // Дії після успішного логіну (можливо, редірект або закриття модалки)
-                document.getElementById('loginButtonText').classList.remove('loading', 'loading-spinner');
-                document.getElementById('auth_modal').close();
+                getTokenExpiration(response.data.token);
+                login(response.data.token);
+                removeClass('loginButtonText', ['loading', 'loading-spinner']);
                 clearAll();
+                closeModal('auth_modal');
                 showAlert('Ви успішно авторизувались!', 'success', 'authSuccess');
             } else {
                 // Відображення помилки авторизації
                 if (response.status === 400) {
-                    document.getElementById('label_auth_login').classList.add('border-error');
-                    document.getElementById('label_auth_password').classList.add('border-error');
+                    addClass('label_auth_login', 'border-error');
+                    addClass('label_auth_password', 'border-error');
                     setAuthErrorMessage('Перевірте правильність введених даних: формат логіну та/або паролю недійсний');
                 } else if (response.status === 401) {
-                    document.getElementById('label_auth_login').classList.add('border-error');
-                    document.getElementById('label_auth_password').classList.add('border-error');
+                    addClass('label_auth_login', 'border-error');
+                    addClass('label_auth_password', 'border-error');
                     setAuthErrorMessage('Перевірте правильність введених даних: логін та/або пароль недійсні.');
                 } else if (response.status === 409) {
-                    document.getElementById('label_auth_login').classList.add('border-error');
-                    document.getElementById('label_auth_password').classList.add('border-error');
+                    addClass('label_auth_login', 'border-error');
+                    addClass('label_auth_password', 'border-error');
                     setAuthErrorMessage('Помилка 409. Зверніться до служби підтримки.');
                 } else {
                     setAuthErrorMessage(response.message || 'Помилка авторизації.');
                 }
-                
             }
         } catch (error) {
             setAuthErrorMessage('Не вдалося підключитися до сервера авторизації. Спробуйте пізніше.');
         }
 
-        document.getElementById('loginButtonText').classList.remove('loading', 'loading-spinner');
+        removeClass('loginButtonText', ['loading', 'loading-spinner']);
     }
 
     return(

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Password, User, EyeClosed, EyeOpened, Email, ArrowRight } from '../svg/Icons';
 import { api_signup } from '../../scripts/api';
 import { useAlert } from '../../context/AlertContext';
+import { addClass, removeClass } from '../../scripts/misc';
 
 export default function RegModal() {
 

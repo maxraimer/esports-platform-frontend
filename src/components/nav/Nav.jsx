@@ -2,11 +2,14 @@ import React from 'react'
 import { useLocation, Link } from 'react-router-dom';
 import NavMenuElement from './NavMenuElement';
 import { News, Cup, CupFilled, Match, Rating, Live, Market, ESP, Search, Activity, User, Friends, Team, AdminLocker, Settings, Exit, Organizer } from '../svg/Icons';
+import { useUser } from '../../context/UserContext';
 
 export default function Nav() {
     const location = useLocation();
-    const authed = false;
     const currentPath = location.pathname;
+    
+    const { user, logout } = useUser();
+
     return(
         <div id='nav' className='w-full h-[3.5rem] bg-base-100 flex justify-between'>
             <div className='flex gap-2'>
@@ -25,7 +28,7 @@ export default function Nav() {
             </div>
 
             {/* User Space */}
-            {authed ? 
+            {user ? 
                 <div className='flex gap-2 mr-2 items-center'>
                     <label id='label_search' className="input input-bordered focus-within:border-primary flex items-center gap-2">
                         <Search className='h-4 w-4 opacity-70 [&>*]:fill-base-content'/>
@@ -39,18 +42,18 @@ export default function Nav() {
                             </div>
                         </div>
                         <ul tabIndex={0} className='menu menu-md dropdown-content bg-base-100 rounded-md z-[1] mt-4 w-52 p-2 shadow'>
-                            <li><Link to='/user/1'><User className='w-[1rem] h-[1rem] px-[0.1rem] fill-base-content'/>Профіль</Link></li>
+                            <li><Link to={`/user/${user.id}`}><User className='w-[1rem] h-[1rem] px-[0.1rem] fill-base-content'/>Профіль</Link></li>
                             <div className='divider my-1'></div>
-                            <li><Link to='/user/1/activity'><Activity className='w-[1rem] h-[1rem] fill-base-content'/>Активність</Link></li>
-                            <li><Link to='/user/1/friends'><Friends className='w-[1rem] h-[1rem] fill-base-content'/>Друзі</Link></li>
-                            <li><Link to='/user/1/teams'><Team className='w-[1rem] h-[1rem] fill-base-content'/>Команди</Link></li>
-                            <li><Link to='/user/1/tournaments'><CupFilled className='w-[1rem] h-[1rem] p-[0.1rem] fill-base-content'/>Турніри</Link></li>
+                            <li><Link to={`/user/${user.id}/activity`}><Activity className='w-[1rem] h-[1rem] fill-base-content'/>Активність</Link></li>
+                            <li><Link to={`/user/${user.id}/friends`}><Friends className='w-[1rem] h-[1rem] fill-base-content'/>Друзі</Link></li>
+                            <li><Link to={`/user/${user.id}/teams`}><Team className='w-[1rem] h-[1rem] fill-base-content'/>Команди</Link></li>
+                            <li><Link to={`/user/${user.id}/tournaments`}><CupFilled className='w-[1rem] h-[1rem] p-[0.1rem] fill-base-content'/>Турніри</Link></li>
                             <div className='divider my-1'></div>
                             <li><Link to='/'><AdminLocker className='w-[1rem] h-[1rem] fill-base-content'/>Адмін-панель</Link></li>
                             <li><Link to='/'><Organizer className='w-[1rem] h-[1rem] fill-base-content'/>Організатор</Link></li>
-                            <li><Link to='/user/1/settings'><Settings className='w-[1rem] h-[1rem] fill-base-content'/>Налаштування</Link></li>
+                            <li><Link to={`/user/${user.id}/settings`}><Settings className='w-[1rem] h-[1rem] fill-base-content'/>Налаштування</Link></li>
                             <div className='divider my-1'></div>
-                            <li><button className='text-error'><Exit className='w-[1rem] h-[1rem] p-[0.1rem] [&>*]:fill-error'/>Вихід</button></li>
+                            <li><button className='text-error' onClick={logout}><Exit className='w-[1rem] h-[1rem] p-[0.1rem] [&>*]:fill-error'/>Вихід</button></li>
                         </ul>
                     </div>
                 </div>

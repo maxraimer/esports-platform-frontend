@@ -16,10 +16,12 @@ import UserFriendsPage from './pages/UserFriendsPage';
 import UserTournamentsPage from './pages/UserTournamentsPage';
 import UserSettingsPage from './pages/UserSettingsPage';
 import { AlertProvider } from './context/AlertContext';
+import { UserProvider } from './context/UserContext';
 
 export default function App() {
 
 	return (
+		<UserProvider>
 		<AlertProvider>
 			<div className="App">
 				{/* Navigation bar */}
@@ -51,5 +53,6 @@ export default function App() {
 
 			</div>
 		</AlertProvider>
+		</UserProvider>
 	);
 }
