@@ -11,7 +11,7 @@ export default function Nav() {
     const { user, logout } = useUser();
 
     return(
-        <div id='nav' className='w-full h-[3.5rem] bg-base-100 flex justify-between'>
+        <div id='nav' className='absolute w-full h-[3.5rem] bg-base-100 hidden md:flex justify-between z-100 shadow-lg'>
             <div className='flex gap-2'>
                 {/* Logo */}
                 <div className='flex justify-center items-center w-auto h-full aspect-square'><ESP className='w-[2rem] h-[2rem] [&>*]:fill-base-content'/></div>
@@ -38,7 +38,7 @@ export default function Nav() {
                     <div className='dropdown dropdown-end'>
                         <div tabIndex={0} role='button' className='btn btn-ghost avatar'>
                             <div className='w-[2rem] h-[2rem] rounded-full ring-[2.5px] ring-primary'>
-                                <img alt='profile_photo' src='https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp' />
+                                <img alt='profile_photo' src='/images/avatar.png' />
                             </div>
                         </div>
                         <ul tabIndex={0} className='menu menu-md dropdown-content bg-base-100 rounded-md z-[1] mt-4 w-52 p-2 shadow'>

@@ -4,6 +4,7 @@
 
 html {
     background: oklch(var(--b3)) !important;
+    scrollbar-gutter: unset !important;
 }
 
 #nav button.btn {

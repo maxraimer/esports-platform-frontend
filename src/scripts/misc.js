@@ -37,3 +37,17 @@ export function openModal(id) {
 export function closeModal(id) {
     document.getElementById(id).close();
 }
+
+export function defineYearsText(years) {
+    const lastDigit = parseInt(String(years).charAt(1));
+    switch (lastDigit) {
+        case 1:
+            return 'рік';
+        case 2:
+        case 3:
+        case 4:
+            return 'роки';
+        default:
+            return 'років';                
+    }
+}

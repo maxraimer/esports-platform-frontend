@@ -26,26 +26,28 @@ export default function App() {
 			<div className="App">
 				{/* Navigation bar */}
 				<Nav/>
+				
+				<div className='pt-[3.5rem]'>
+					{/* Routes - Content */}
+					<Routes>
+						<Route path='/' element={<HomePage/>}/>
 
-				{/* Routes - Content */}
-				<Routes>
-					<Route path='/' element={<HomePage/>}/>
+						<Route path='/tournaments' element={<TournamentsPage/>}/>
+						<Route path='/matches' element={<MatchesPage/>}/>
+						<Route path='/rankings' element={<RankingsPage/>}/>
+						<Route path='/streams' element={<StreamsPage/>}/>
+						<Route path='/market' element={<MarketPage/>}/>
 
-					<Route path='/tournaments' element={<TournamentsPage/>}/>
-					<Route path='/matches' element={<MatchesPage/>}/>
-					<Route path='/rankings' element={<RankingsPage/>}/>
-					<Route path='/streams' element={<StreamsPage/>}/>
-					<Route path='/market' element={<MarketPage/>}/>
+						<Route path='/user/:id' element={<UserPage/>}/>
+						<Route path='/user/:id/activity' element={<UserActivitiesPage/>}/>
+						<Route path='/user/:id/teams' element={<UserTeamsPage/>}/>
+						<Route path='/user/:id/tournaments' element={<UserTournamentsPage/>}/>
+						<Route path='/user/:id/friends' element={<UserFriendsPage/>}/>
+						<Route path='/user/:id/settings' element={<UserSettingsPage/>}/>
 
-					<Route path='/user/:id' element={<UserPage/>}/>
-					<Route path='/user/:id/activity' element={<UserActivitiesPage/>}/>
-					<Route path='/user/:id/teams' element={<UserTeamsPage/>}/>
-					<Route path='/user/:id/tournaments' element={<UserTournamentsPage/>}/>
-					<Route path='/user/:id/friends' element={<UserFriendsPage/>}/>
-					<Route path='/user/:id/settings' element={<UserSettingsPage/>}/>
-
-					<Route path='*' element={<NotFoundPage/>}/>
-				</Routes>
+						<Route path='*' element={<NotFoundPage/>}/>
+					</Routes>
+				</div>
 
 				{/* Modals */}
 				<AuthModal/>
